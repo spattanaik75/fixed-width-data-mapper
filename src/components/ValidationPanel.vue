@@ -124,7 +124,7 @@ const handleJumpToField = (fieldName: string) => {
 
 <style scoped>
 .validation-panel {
-  @apply bg-white rounded-lg shadow-md p-4 h-full flex flex-col;
+  @apply bg-white rounded-lg shadow-md p-4 h-full flex flex-col overflow-hidden;
 }
 
 .panel-header {
@@ -168,7 +168,7 @@ const handleJumpToField = (fieldName: string) => {
 }
 
 .issues-list {
-  @apply flex-1 overflow-y-auto space-y-4;
+  @apply flex-1 overflow-y-auto space-y-4 max-h-full;
 }
 
 .issue-section {

@@ -27,6 +27,16 @@ const searchTerm = ref('');
 const highlightedField = ref<string | null>(null);
 const currentPage = ref(1);
 const recordsPerPage = ref(10);
+const collapsedSections = ref({
+  mapper: false,
+  viewer: false,
+  validation: false
+});
+
+// Toggle section collapse
+const toggleSection = (section: 'mapper' | 'viewer' | 'validation') => {
+  collapsedSections.value[section] = !collapsedSections.value[section];
+};
 
 // Upload handlers
 const handleMapperUpload = async (file: File) => {
@@ -220,69 +230,107 @@ watch(
         </div>
       </section>
 
-      <!-- Search Section -->
-      <section v-if="fileParser.mappings.value.length > 0" class="section search-section">
-        <SearchBar
-          @search="handleSearch"
-          @clear="handleClearSearch"
-        />
-      </section>
+      <!-- Main Layout -->
+      <div v-if="fileParser.mappings.value.length > 0" class="main-layout">
+        <!-- Mapper Editor Panel -->
+        <section class="collapsible-section">
+          <div class="section-header" @click="toggleSection('mapper')">
+            <h2 class="section-title">Field Mappings</h2>
+            <svg 
+              class="toggle-icon"
+              :class="{ 'rotate-180': !collapsedSections.mapper }"
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <div v-show="!collapsedSections.mapper" class="section-content">
+            <div class="mb-4">
+              <SearchBar
+                placeholder="Search field mappings..."
+                @search="handleSearch"
+                @clear="handleClearSearch"
+              />
+            </div>
+            <MapperEditor
+              :mappings="filteredMappings"
+              :highlighted-field="highlightedField || undefined"
+              @add-field="handleAddField"
+              @edit-field="handleEditField"
+              @delete-field="handleDeleteField"
+              @field-click="handleJumpToField"
+            />
+          </div>
+        </section>
 
-      <!-- Main Grid Layout -->
-      <div v-if="fileParser.mappings.value.length > 0" class="main-grid">
-        <!-- Mapper Editor -->
-        <div class="grid-col mapper-col">
-          <MapperEditor
-            :mappings="filteredMappings"
-            :highlighted-field="highlightedField || undefined"
-            @add-field="handleAddField"
-            @edit-field="handleEditField"
-            @delete-field="handleDeleteField"
-            @field-click="handleJumpToField"
-          />
-        </div>
-
-        <!-- Data Viewer -->
-        <div class="grid-col viewer-col">
-          <DataViewer
-            :records="filteredRecords"
-            :mappings="fileParser.mappings.value"
-            :current-page="currentPage"
-            :records-per-page="recordsPerPage"
-            :loading="fileParser.fileState.value.loading"
-          />
-        </div>
-
-        <!-- Sidebar -->
-        <div class="grid-col sidebar-col">
-          <!-- Validation Panel -->
-          <div class="sidebar-panel">
-            <ValidationPanel
-              :errors="validation.errors.value"
-              :warnings="validation.warnings.value"
+        <!-- Data Viewer Panel -->
+        <section class="collapsible-section">
+          <div class="section-header" @click="toggleSection('viewer')">
+            <h2 class="section-title">Parsed Data</h2>
+            <svg 
+              class="toggle-icon"
+              :class="{ 'rotate-180': !collapsedSections.viewer }"
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <div v-show="!collapsedSections.viewer" class="section-content">
+            <DataViewer
+              :records="filteredRecords"
+              :mappings="fileParser.mappings.value"
+              :current-page="currentPage"
+              :records-per-page="recordsPerPage"
               :loading="fileParser.fileState.value.loading"
-              @jump-to-field="handleJumpToField"
             />
           </div>
+        </section>
 
-          <!-- Export Panel -->
-          <div class="sidebar-panel">
-            <ExportPanel
-              :disabled="fileParser.mappings.value.length === 0"
-              :loading="exportTools.exporting.value"
-              @export-mapper-csv="handleExportMapperCSV"
-              @export-mapper-excel="handleExportMapperExcel"
-              @export-data-csv="handleExportDataCSV"
-              @export-validation="handleExportValidation"
-              @export-all="handleExportAll"
-            />
+        <!-- Validation & Export Panel -->
+        <section class="collapsible-section">
+          <div class="section-header" @click="toggleSection('validation')">
+            <h2 class="section-title">Validation & Export</h2>
+            <svg 
+              class="toggle-icon"
+              :class="{ 'rotate-180': !collapsedSections.validation }"
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
           </div>
-
-          <!-- Help Panel -->
-          <div class="sidebar-panel">
-            <HelpPanel />
+          <div v-show="!collapsedSections.validation" class="section-content">
+            <div class="validation-export-grid">
+              <div class="validation-wrapper">
+                <ValidationPanel
+                  :errors="validation.errors.value"
+                  :warnings="validation.warnings.value"
+                  :loading="fileParser.fileState.value.loading"
+                  @jump-to-field="handleJumpToField"
+                />
+              </div>
+              <div class="export-help-wrapper">
+                <div class="mb-4">
+                  <ExportPanel
+                    :disabled="fileParser.mappings.value.length === 0"
+                    :loading="exportTools.exporting.value"
+                    @export-mapper-csv="handleExportMapperCSV"
+                    @export-mapper-excel="handleExportMapperExcel"
+                    @export-data-csv="handleExportDataCSV"
+                    @export-validation="handleExportValidation"
+                    @export-all="handleExportAll"
+                  />
+                </div>
+                <HelpPanel />
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
 
       <!-- Empty State -->
@@ -331,7 +379,7 @@ watch(
 }
 
 .header-content {
-  @apply max-w-7xl mx-auto px-4;
+  @apply mx-auto px-6;
 }
 
 .app-title {
@@ -343,7 +391,7 @@ watch(
 }
 
 .app-main {
-  @apply flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6;
+  @apply flex-1 w-full px-6 py-6 space-y-6;
 }
 
 .section {
@@ -354,36 +402,44 @@ watch(
   @apply space-y-4;
 }
 
-.search-section {
-  @apply p-4;
-}
-
 .error-message {
   @apply bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg;
 }
 
-.main-grid {
-  @apply grid grid-cols-1 lg:grid-cols-12 gap-6;
+.main-layout {
+  @apply space-y-6;
 }
 
-.mapper-col {
-  @apply lg:col-span-5;
+.collapsible-section {
+  @apply bg-white rounded-lg shadow-md overflow-hidden;
 }
 
-.viewer-col {
-  @apply lg:col-span-4;
+.section-header {
+  @apply flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-purple-50 cursor-pointer hover:from-blue-100 hover:to-purple-100 transition-colors;
 }
 
-.sidebar-col {
-  @apply lg:col-span-3 space-y-6;
+.section-title {
+  @apply text-lg font-semibold text-gray-800;
 }
 
-.grid-col {
-  @apply h-[600px];
+.toggle-icon {
+  @apply w-5 h-5 text-gray-600 transition-transform duration-200;
 }
 
-.sidebar-panel {
-  @apply h-auto;
+.section-content {
+  @apply p-4;
+}
+
+.validation-export-grid {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+}
+
+.validation-wrapper {
+  @apply h-[400px];
+}
+
+.export-help-wrapper {
+  @apply space-y-4;
 }
 
 .empty-state-container {
