@@ -1,0 +1,190 @@
+Element,Value,Description,Type,Position,Length,Preview
+0,#A13,Section Amend Date,FCR,0 to 0,0,
+1,#AS14,Section Amend Date,FCR,0 to 0,0,
+2,#C16,"Amend Date: C1-C15, C17, C18",FCR,0 to 0,0,
+3,#CG5,Amend Date: CG1-CG4,FCR,0 to 0,0,
+4,#D84,Amend Date D33 - D82,FCR,0 to 0,0,
+5,#E4,Amend Date E1 - E3,FCR,0 to 0,0,
+6,#F10,"Amend Date (Subset 1): F1 - F9, F11, FA1, FA24, FA42",FCR,0 to 0,0,
+7,#FS35,"Amend Date (Subset 5): FA5, FA28, FA35, FA45, FS18 - FS25",FCR,0 to 0,0,
+8,#G7,"Amend Date (Subset 2): FA2, FA25, G1 - G6, GA1, GA2, GA3",FCR,0 to 0,0,
+9,#H11,Amend DateH1 - H10,FCR,0 to 0,0,
+10,#HS9,"Amend DateHS1 - HS8, HS10, HS11",FCR,0 to 0,0,
+11,#J7,Amend DateJ1 - J6,FCR,0 to 0,0,
+12,#JS1,"Amend DateJS2, JS3",FCR,0 to 0,0,
+13,#K28,Amend DateK1 - K27,FCR,0 to 0,0,
+14,#L21,Section Amend Date - all instruments,FCR,0 to 0,0,
+15,#R76,Amend Date: R1 - R2,FCR,0 to 0,0,
+16,#R78,"Amend Date: R7 - R19, R84, R85, RA1 - RA23",FCR,0 to 0,0,
+17,#R79,Amend Date: R20 - R26,FCR,0 to 0,0,
+18,#R80,Amend Date: R27 - R35,FCR,0 to 0,0,
+19,#R81,Amend Date: R36 - R63,FCR,0 to 0,0,
+20,#R82,Amend Date: R64 - R70,FCR,0 to 0,0,
+21,#R83,Amend Date: R71 - R75,FCR,0 to 0,0,
+22,#RS23,"Amend Date RS1, RS7 - RS17, RS24 - RS26",FCR,0 to 0,0,
+23,#CS12,"Amend Date: CS1,CS4-CS11,CS14-CS16",FCR,0 to 0,0,
+24,A1,SEDOL/IDII Number,SED,1 to 7,7,*******
+25,A2,Record Type,CHR,8 to 8,1,*
+26,A3,Company Name,CHR,9 to 26,18,******************
+27,A4,Security Description,CHR,27 to 53,27,***************************
+28,A5,Nominal value/Unit of quotation,FCV,54 to 64,11,***********
+29,A6,Nominal Value/Unit of Quotation Marker,CHR,65 to 65,1,*
+30,AS3,CUSIP/CUSIP International (CIN)Code,CHR,66 to 74,9,*********
+31,C1,Security Type,CHR,75 to 76,2,**
+32,C2,Country of Quotation,CHR,77 to 78,2,**
+33,C3,Registrar Code,CHR,79 to 81,3,***
+34,C4,Obsolete - (formerly Local Broader Industrial Classification),CHR,82 to 84,3,***
+35,C9,Accrued Interest Calculation Basis,CHR,85 to 85,1,*
+36,C10,Capital Gains Tax Exemption Marker,CHR,86 to 86,1,*
+37,C11,Instrument Form Indicator,CHR,87 to 87,1,*
+38,C5,Exchange Section,CHR,88 to 90,3,***
+39,AS3,CUSIP/CUSIP International (CIN)Code,CHR,91 to 99,9,*********
+40,CS6,Obsolete - (formerly Local Narrower Industrial Classification),CHR,100 to 103,4,****
+41,SP0020,,CHR,104 to 123,20,____________________
+42,D75,Forecast Total Period Income,FCV,124 to 134,11,***********
+43,D76,Forecast Total Period Income Marker,CHR,135 to 135,1,*
+44,D77,Forecast Total Period Income Rule,CHR,136 to 137,2,**
+45,D78,General Marker A,CHR,138 to 138,1,*
+46,SP0006,,CHR,139 to 144,6,______
+47,E1,Earnings Amount,FCV,145 to 155,11,***********
+48,E2,Earnings Marker,CHR,156 to 156,1,*
+49,E3,Earnings Qualification Marker,CHR,157 to 157,1,*
+50,F3,Exchange of Quotation,CHR,158 to 158,1,*
+51,F4,"Price A, Sub-Set 1",FCV,159 to 169,11,***********
+52,F5,"Price B, Sub-Set 1",FCV,170 to 180,11,***********
+53,F6,"Price Type Marker, Sub-Set 1",CHR,181 to 181,1,*
+54,F8,Income Marker,CHR,182 to 182,1,*
+55,F9,Event Marker,CHR,183 to 183,1,*
+56,G1,"Price A, Sub-Set 2",FCV,184 to 194,11,***********
+57,G3,"Price Type Marker, Sub-Set 2",CHR,195 to 195,1,*
+58,H1,Situation Marker,CHR,196 to 196,1,*
+59,J1,Situation Marker,CHR,197 to 197,1,*
+60,J2,Early Redemption Date,FCD,198 to 204,7,*******
+61,J3,Final Redemption Date,FCD,205 to 211,7,*******
+62,J4,Early Redemption Value,FCV,212 to 222,11,***********
+63,J5,Final Redemption Value,FCV,223 to 233,11,***********
+64,J6,Qualifying Marker,CHR,234 to 234,1,*
+65,JS2,Holders Option Marker,CHR,235 to 235,1,*
+66,K1,Issue Type,CHR,236 to 236,1,*
+67,K2,New Quantity,FCV,237 to 247,11,***********
+68,K3,Old Quantity,FCV,248 to 258,11,***********
+69,K5,EXSHARE Adjustment Factor,FCV,259 to 269,11,***********
+70,K9,Record Date,FCD,270 to 276,7,*******
+71,K10,Unused/Obsolete,FCD,277 to 283,7,*******
+72,K11,Ex/Effective Date,FCD,284 to 290,7,*******
+73,K13,Last Date for Splitting,FCD,291 to 297,7,*******
+74,K14,Last Renunciation Date,FCD,298 to 304,7,*******
+75,K15,Number of Calls,CHR,305 to 305,1,*
+76,K16,Amount of First Call,FCV,306 to 316,11,***********
+77,K17,Date of First Call,FCD,317 to 323,7,*******
+78,K18,Amount of Second Call,FCV,324 to 334,11,***********
+79,K19,Date of Second Call,FCD,335 to 341,7,*******
+80,K20,Amount of Third Call,FCV,342 to 352,11,***********
+81,K21,Date of Third Call,FCD,353 to 359,7,*******
+82,K22,Amount of Fourth Call,FCV,360 to 370,11,***********
+83,K23,Date of Fourth Call,FCD,371 to 377,7,*******
+84,K24,Cross Reference I Marker,CHR,378 to 378,1,*
+85,K25,Cross Reference I SEDOL,SED,379 to 385,7,*******
+86,K26,Cross Reference J Marker,CHR,386 to 386,1,*
+87,K27,Cross Reference J SEDOL,SED,387 to 393,7,*******
+88,K28,Amend DateK1 - K27,FCR,394 to 396,3,***
+89,L1,Situation Marker,CHR,397 to 397,1,*
+90,L2,Unit of Conversion,FCV,398 to 408,11,***********
+91,L5,Next Resultant Asset,SED,409 to 415,7,*******
+92,L13,Situation Effective Date,FCD,416 to 422,7,*******
+93,L19,Final Opportunity Date,FCD,423 to 429,7,*******
+94,R1,Company Long Name,CHR,430 to 464,35,***********************************
+95,R2,Security Long Description,CHR,465 to 504,40,****************************************
+96,R5,Transfer Stamp,CHR,505 to 505,1,*
+97,R9,Security Abbreviation,CHR,506 to 523,18,******************
+98,R11,Unused/Obsolete,CHR,524 to 524,1,*
+99,R12,Unused/Obsolete,CHR,525 to 525,1,*
+100,R17,Unit of Quotation,FCV,526 to 536,11,***********
+101,R18,Number of Units of Transfer,CHR,537 to 537,1,*
+102,R19,Minimum Unit of Transfer,FCV,538 to 548,11,***********
+103,R27,Unused/Obsolete,CHR,549 to 549,1,*
+104,R29,Unused/Obsolete,CHR,550 to 550,1,*
+105,C8,PTM Levy Indicator,CHR,551 to 551,1,*
+106,RS1,LSE ISIN,CHR,552 to 563,12,************
+107,RS7,Country of Register,CHR,564 to 565,2,**
+108,RS8,Unused/Obsolete,CHR,566 to 567,2,**
+109,RS15,Unused/Obsolete,CHR,568 to 573,6,******
+110,RS17,Official ISIN,CHR,574 to 585,12,************
+111,AS1,Country of Incorporation,CHR,586 to 587,2,**
+112,D33,Current Period End Date,FCD,588 to 594,7,*******
+113,D34,Current Period Marker,CHR,595 to 595,1,*
+114,D35,Sub-Section Code,CHR,596 to 597,2,**
+115,D36,Announced Income Value,FCV,598 to 608,11,***********
+116,D37,Adjusted Value,FCV,609 to 619,11,***********
+117,D38,Value Marker,CHR,620 to 620,1,*
+118,D39,Tax Marker,CHR,621 to 622,2,**
+119,D40,Payment Date,FCD,623 to 629,7,*******
+120,D41,Ex-Date,FCD,630 to 636,7,*******
+121,D42,Record Date,FCD,637 to 643,7,*******
+122,D43,Sub-Section Code,CHR,644 to 645,2,**
+123,D44,Announced Income Value,FCV,646 to 656,11,***********
+124,D45,Adjusted Value,FCV,657 to 667,11,***********
+125,D46,Value Marker,CHR,668 to 668,1,*
+126,D47,Tax Marker,CHR,669 to 670,2,**
+127,D48,Payment Date,FCD,671 to 677,7,*******
+128,D49,Ex-Date,FCD,678 to 684,7,*******
+129,D50,Record Date,FCD,685 to 691,7,*******
+130,D51,Sub-Section Code,CHR,692 to 693,2,**
+131,D52,Announced Income Value,FCV,694 to 704,11,***********
+132,D53,Adjusted Value,FCV,705 to 715,11,***********
+133,D54,Value Marker,CHR,716 to 716,1,*
+134,D55,Tax Marker,CHR,717 to 718,2,**
+135,D56,Payment Date,FCD,719 to 725,7,*******
+136,D57,Ex-Date,FCD,726 to 732,7,*******
+137,D58,Record Date,FCD,733 to 739,7,*******
+138,D59,Sub-Section Code,CHR,740 to 741,2,**
+139,D60,Announced Income Value,FCV,742 to 752,11,***********
+140,D61,Adjusted Value,FCV,753 to 763,11,***********
+141,D62,Value Marker,CHR,764 to 764,1,*
+142,D63,Tax Marker,CHR,765 to 766,2,**
+143,D64,Payment Date,FCD,767 to 773,7,*******
+144,D65,Ex-Date,FCD,774 to 780,7,*******
+145,D66,Record Date,FCD,781 to 787,7,*******
+146,D67,Sub-Section Code,CHR,788 to 789,2,**
+147,D68,Announced Income Value,FCV,790 to 800,11,***********
+148,D69,Adjusted Value,FCV,801 to 811,11,***********
+149,D70,Value Marker,CHR,812 to 812,1,*
+150,D71,Tax Marker,CHR,813 to 814,2,**
+151,D72,Payment Date,FCD,815 to 821,7,*******
+152,D73,Ex-Date,FCD,822 to 828,7,*******
+153,D74,Record Date,FCD,829 to 835,7,*******
+154,D79,General Marker B,CHR,836 to 836,1,*
+155,D80,General Marker B Date,FCD,837 to 843,7,*******
+156,FS18,"Price A, Sub-Set 5",FCV,844 to 854,11,***********
+157,FS19,"Price B, Sub-Set 5",FCV,855 to 865,11,***********
+158,FS20,"Price Type Marker, Sub-Set 5",CHR,866 to 866,1,*
+159,DS71,Usual Payment date 1,CHR,867 to 870,4,****
+160,DS72,Usual Payment date 2,CHR,871 to 874,4,****
+161,DS73,Usual Payment date 3,CHR,875 to 878,4,****
+162,DS74,Usual Payment date 4,CHR,879 to 882,4,****
+163,DS75,Payment Frequency,CHR,883 to 883,1,*
+164,C13,Accrued Interest Pricing Basis,CHR,884 to 884,1,*
+165,C12,UK/Irish Stamp Duty/Stamp Duty Reserve Tax Marker,CHR,885 to 885,1,*
+166,C17,Settlement Marker,CHR,886 to 886,1,*
+167,A7,Issued Capital,NUM,887 to 897,11,***********
+168,R67,First Pay Date,FCD,898 to 904,7,*******
+169,R68,Second Pay Date,FCD,905 to 911,7,*******
+170,R69,Third Pay Date,FCD,912 to 918,7,*******
+171,R70,Fourth Pay Date,FCD,919 to 925,7,*******
+172,AS19,Ticker Code,CHR,926 to 940,15,***************
+173,O7,MEXID,CHR,941 to 952,12,************
+174,SP0022,,CHR,953 to 974,22,______________________
+175,A7,Issued Capital,NUM,975 to 985,11,***********
+176,A8,Issued Capital Marker,CHR,986 to 986,1,*
+177,A9,Last Change to Issued Capital,NUM,987 to 997,11,***********
+178,A10,Date of Last Change to Issued Capital,FCD,998 to 1004,7,*******
+179,A11,Reason for Last Change to Issued Capital,CHR,1005 to 1005,1,*
+180,CS15,Voting Rights Indicator,CHR,1006 to 1006,1,*
+181,CG6,ICB Classification - Industry,CHR,1007 to 1010,4,****
+182,CG7,ICB Classification - Supersector,CHR,1011 to 1014,4,****
+183,CG8,ICB Classification - Sector,CHR,1015 to 1018,4,****
+184,CG9,ICB Classification - Subsector,CHR,1019 to 1022,4,****
+185,CG5,Amend Date: CG1-CG4,FCR,1023 to 1025,3,***
+186,HA7,Appears on "Observation" List,CHR,1026 to 1026,1,*
+187,SP0001,,CHR,1027 to 1027,1,_
+188,OM086,Omega Inflation Factor,CHR,1028 to 1040,13,*************
