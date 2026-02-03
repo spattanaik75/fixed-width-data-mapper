@@ -8,5 +8,6 @@ export default defineConfig({
   // Example: if your repo is gitlab.com/username/fixed-width-data-mapper
   // then use: base: '/fixed-width-data-mapper/'
   // For user/group pages (username.gitlab.io), use: base: '/'
-  base: '/fixed-width-data-mapper/',
+  // For local testing: use './' for relative paths
+  base: './',
 })
