@@ -127,7 +127,7 @@ export function validateMapper(mappings: FieldMapping[]): string[] {
     const current = mappings[i];
     const next = mappings[i + 1];
     
-    if (current.positionEnd >= next.positionStart) {
+    if (current && next && current.positionEnd >= next.positionStart) {
       errors.push(
         `Overlapping positions: ${current.element} (${current.positionStart}-${current.positionEnd}) ` +
         `and ${next.element} (${next.positionStart}-${next.positionEnd})`

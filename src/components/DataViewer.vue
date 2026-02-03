@@ -68,7 +68,9 @@ const groupedFields = computed(() => {
   
   props.mappings.forEach(mapping => {
     const group = getFieldGroup(mapping.element);
-    groups[group].push(mapping);
+    if (groups[group]) {
+      groups[group].push(mapping);
+    }
   });
   
   return Object.entries(groups).filter(([_, fields]) => fields.length > 0);
@@ -137,7 +139,7 @@ const groupedFields = computed(() => {
                 v-for="field in fields"
                 :key="field.element"
                 class="field-item"
-                :class="{ 'field-empty': isFieldEmpty(record[field.element]?.value) }"
+                :class="{ 'field-empty': isFieldEmpty(record[field.element]?.value || '') }"
               >
                 <div class="field-label">
                   <span class="font-medium">{{ field.element }}</span>

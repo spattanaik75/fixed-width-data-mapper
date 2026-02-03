@@ -174,15 +174,6 @@ const handleRestoreSession = () => {
   }
 };
 
-const handleClearSession = () => {
-  if (confirm('Clear all data and start fresh?')) {
-    storage.clearSession();
-    fileParser.reset();
-    validation.validationErrors.value = [];
-    toast.info('Session cleared');
-  }
-};
-
 // Check for saved session on mount
 onMounted(() => {
   if (storage.hasSession.value) {

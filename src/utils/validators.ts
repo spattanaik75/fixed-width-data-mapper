@@ -16,7 +16,7 @@ export function validateMappings(mappings: FieldMapping[]): ValidationError[] {
     const current = mappings[i];
     const next = mappings[i + 1];
     
-    if (current.positionEnd >= next.positionStart) {
+    if (current && next && current.positionEnd >= next.positionStart) {
       errors.push({
         type: 'error',
         field: current.element,
@@ -30,13 +30,15 @@ export function validateMappings(mappings: FieldMapping[]): ValidationError[] {
     const current = mappings[i];
     const next = mappings[i + 1];
     
-    const gap = next.positionStart - current.positionEnd - 1;
-    if (gap > 0) {
-      errors.push({
-        type: 'warning',
-        field: current.element,
-        message: `Gap of ${gap} characters between ${current.element} (ends at ${current.positionEnd}) and ${next.element} (starts at ${next.positionStart})`
-      });
+    if (current && next) {
+      const gap = next.positionStart - current.positionEnd - 1;
+      if (gap > 0) {
+        errors.push({
+          type: 'warning',
+          field: current.element,
+          message: `Gap of ${gap} characters between ${current.element} (ends at ${current.positionEnd}) and ${next.element} (starts at ${next.positionStart})`
+        });
+      }
     }
   }
 

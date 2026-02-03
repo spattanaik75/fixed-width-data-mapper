@@ -54,14 +54,9 @@ const isHighlighted = (element: string): boolean => {
   return props.highlightedField === element;
 };
 
-const handleAddNew = () => {
-  editingField.value = undefined;
-  isModalOpen.value = true;
-};
-
 const handleEdit = (field: FieldMapping) => {
   editingField.value = field;
-  isModalOpen.vahandleAddNew
+  isModalOpen.value = true;
 };
 
 const handleDelete = (element: string) => {
@@ -92,7 +87,7 @@ const handleCloseModal = () => {
     <div class="editor-header">
       <h2 class="text-lg font-semibold text-gray-800">Field Mappings</h2>
       <button
-        @click="emit('addField')"
+        @click="isModalOpen = true; editingField = undefined"
         class="btn-primary"
         :disabled="loading"
       >
