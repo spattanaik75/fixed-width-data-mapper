@@ -9,7 +9,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  jumpToField: [fieldName: string];
+  jumpToField: [fieldName: string, recordNumber?: number];
 }>();
 
 const totalIssues = computed(() => props.errors.length + props.warnings.length);
@@ -26,8 +26,8 @@ const statusText = computed(() => {
   return 'All Good';
 });
 
-const handleJumpToField = (fieldName: string) => {
-  emit('jumpToField', fieldName);
+const handleJumpToField = (fieldName: string, recordNumber?: number) => {
+  emit('jumpToField', fieldName, recordNumber);
 };
 </script>
 
@@ -87,7 +87,7 @@ const handleJumpToField = (fieldName: string) => {
           v-for="(error, idx) in errors"
           :key="`error-${idx}`"
           class="issue-item error"
-          @click="handleJumpToField(error.field)"
+          @click="handleJumpToField(error.field, error.line)"
         >
           <div class="issue-icon">
             <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
@@ -95,7 +95,10 @@ const handleJumpToField = (fieldName: string) => {
             </svg>
           </div>
           <div class="issue-content">
-            <div class="issue-field">{{ error.field }}</div>
+            <div class="issue-field">
+              {{ error.field }}
+              <span v-if="error.line" class="text-xs text-red-600 ml-2 font-normal">(Record #{{ error.line }})</span>
+            </div>
             <div class="issue-message">{{ error.message }}</div>
           </div>
         </div>
@@ -111,7 +114,7 @@ const handleJumpToField = (fieldName: string) => {
           v-for="(warning, idx) in warnings"
           :key="`warning-${idx}`"
           class="issue-item warning"
-          @click="handleJumpToField(warning.field)"
+          @click="handleJumpToField(warning.field, warning.line)"
         >
           <div class="issue-icon">
             <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
@@ -119,7 +122,10 @@ const handleJumpToField = (fieldName: string) => {
             </svg>
           </div>
           <div class="issue-content">
-            <div class="issue-field">{{ warning.field }}</div>
+            <div class="issue-field">
+              {{ warning.field }}
+              <span v-if="warning.line" class="text-xs text-yellow-600 ml-2 font-normal">(Record #{{ warning.line }})</span>
+            </div>
             <div class="issue-message">{{ warning.message }}</div>
           </div>
         </div>

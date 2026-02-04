@@ -24,6 +24,7 @@ const storage = useLocalStorage();
 
 // State
 const searchTerm = ref('');
+const filteredRecordNumber = ref<number | null>(null);
 const highlightedField = ref<string | null>(null);
 const currentPage = ref(1);
 const recordsPerPage = ref(10);
@@ -73,9 +74,19 @@ const filteredMappings = computed(() => {
 });
 
 const filteredRecords = computed(() => {
-  if (!searchTerm.value) return fileParser.parsedRecords.value;
-  const term = searchTerm.value.toLowerCase();
-  return fileParser.parsedRecords.value;
+  let records = fileParser.parsedRecords.value;
+  
+  // Filter by record number if specified
+  if (filteredRecordNumber.value !== null) {
+    const index = filteredRecordNumber.value - 1;
+    if (index >= 0 && index < records.length) {
+      records = [records[index]];
+    } else {
+      records = [];
+    }
+  }
+  
+  return records;
 });
 
 const handleSearch = (term: string) => {
@@ -84,12 +95,16 @@ const handleSearch = (term: string) => {
 
 const handleClearSearch = () => {
   searchTerm.value = '';
+  filteredRecordNumber.value = null;
 };
 
 // Validation - Filter to specific field when clicking error
-const handleJumpToField = (fieldName: string) => {
+const handleJumpToField = (fieldName: string, recordNumber?: number) => {
   // Set search term to filter the field
   searchTerm.value = fieldName;
+  
+  // Set record number filter if provided
+  filteredRecordNumber.value = recordNumber || null;
   
   // Highlight the field
   highlightedField.value = fieldName;
@@ -103,7 +118,11 @@ const handleJumpToField = (fieldName: string) => {
     highlightedField.value = null;
   }, 5000);
   
-  toast.info(`Filtering for field: ${fieldName}`);
+  if (recordNumber) {
+    toast.info(`Filtering field "${fieldName}" in record #${recordNumber}`);
+  } else {
+    toast.info(`Filtering for field: ${fieldName}`);
+  }
 };
 
 // Field handlers
