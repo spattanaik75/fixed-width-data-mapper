@@ -63,26 +63,19 @@ const handleDataUpload = async (file: File) => {
   }
 };
 
-// Search
+// Search - exact match on element name
 const filteredMappings = computed(() => {
   if (!searchTerm.value) return fileParser.mappings.value;
   const term = searchTerm.value.toLowerCase();
   return fileParser.mappings.value.filter(m =>
-    m.element.toLowerCase().includes(term) ||
-    m.value.toLowerCase().includes(term) ||
-    m.description.toLowerCase().includes(term)
+    m.element.toLowerCase() === term
   );
 });
 
 const filteredRecords = computed(() => {
   if (!searchTerm.value) return fileParser.parsedRecords.value;
   const term = searchTerm.value.toLowerCase();
-  return fileParser.parsedRecords.value.filter(record =>
-    Object.values(record).some(field =>
-      field.value.toLowerCase().includes(term) ||
-      field.name.toLowerCase().includes(term)
-    )
-  );
+  return fileParser.parsedRecords.value;
 });
 
 const handleSearch = (term: string) => {
@@ -93,12 +86,24 @@ const handleClearSearch = () => {
   searchTerm.value = '';
 };
 
-// Validation
+// Validation - Filter to specific field when clicking error
 const handleJumpToField = (fieldName: string) => {
+  // Set search term to filter the field
+  searchTerm.value = fieldName;
+  
+  // Highlight the field
   highlightedField.value = fieldName;
+  
+  // Expand mapper and viewer sections if collapsed
+  collapsedSections.value.mapper = false;
+  collapsedSections.value.viewer = false;
+  
+  // Clear highlight after 5 seconds
   setTimeout(() => {
     highlightedField.value = null;
-  }, 3000);
+  }, 5000);
+  
+  toast.info(`Filtering for field: ${fieldName}`);
 };
 
 // Field handlers
@@ -232,63 +237,7 @@ watch(
 
       <!-- Main Layout -->
       <div v-if="fileParser.mappings.value.length > 0" class="main-layout">
-        <!-- Mapper Editor Panel -->
-        <section class="collapsible-section">
-          <div class="section-header" @click="toggleSection('mapper')">
-            <h2 class="section-title">Field Mappings</h2>
-            <svg 
-              class="toggle-icon"
-              :class="{ 'rotate-180': !collapsedSections.mapper }"
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
-          <div v-show="!collapsedSections.mapper" class="section-content">
-            <div class="mb-4">
-              <SearchBar
-                placeholder="Search field mappings..."
-                @search="handleSearch"
-                @clear="handleClearSearch"
-              />
-            </div>
-            <MapperEditor
-              :mappings="filteredMappings"
-              :highlighted-field="highlightedField || undefined"
-              @add-field="handleAddField"
-              @edit-field="handleEditField"
-              @delete-field="handleDeleteField"
-              @field-click="handleJumpToField"
-            />
-          </div>
-        </section>
 
-        <!-- Data Viewer Panel -->
-        <section class="collapsible-section">
-          <div class="section-header" @click="toggleSection('viewer')">
-            <h2 class="section-title">Parsed Data</h2>
-            <svg 
-              class="toggle-icon"
-              :class="{ 'rotate-180': !collapsedSections.viewer }"
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
-          <div v-show="!collapsedSections.viewer" class="section-content">
-            <DataViewer
-              :records="filteredRecords"
-              :mappings="fileParser.mappings.value"
-              :current-page="currentPage"
-              :records-per-page="recordsPerPage"
-              :loading="fileParser.fileState.value.loading"
-            />
-          </div>
-        </section>
 
         <!-- Validation & Export Panel -->
         <section class="collapsible-section">
@@ -329,6 +278,65 @@ watch(
                 <HelpPanel />
               </div>
             </div>
+          </div>
+        </section>
+
+        <!-- Mapper Editor Panel -->
+        <section class="collapsible-section">
+          <div class="section-header" @click="toggleSection('mapper')">
+            <h2 class="section-title">Field Mappings</h2>
+            <svg 
+              class="toggle-icon"
+              :class="{ 'rotate-180': !collapsedSections.mapper }"
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <div v-show="!collapsedSections.mapper" class="section-content">
+            <div class="mb-4">
+              <SearchBar
+                v-model="searchTerm"
+                placeholder="Search field mappings..."
+                @search="handleSearch"
+                @clear="handleClearSearch"
+              />
+            </div>
+            <MapperEditor
+              :mappings="filteredMappings"
+              :highlighted-field="highlightedField || undefined"
+              @add-field="handleAddField"
+              @edit-field="handleEditField"
+              @delete-field="handleDeleteField"
+              @field-click="handleJumpToField"
+            />
+          </div>
+        </section>
+
+        <!-- Data Viewer Panel -->
+        <section class="collapsible-section">
+          <div class="section-header" @click="toggleSection('viewer')">
+            <h2 class="section-title">Parsed Data</h2>
+            <svg 
+              class="toggle-icon"
+              :class="{ 'rotate-180': !collapsedSections.viewer }"
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <div v-show="!collapsedSections.viewer" class="section-content viewer-content">
+            <DataViewer
+              :records="filteredRecords"
+              :mappings="filteredMappings"
+              :current-page="currentPage"
+              :records-per-page="recordsPerPage"
+              :loading="fileParser.fileState.value.loading"
+            />
           </div>
         </section>
       </div>
@@ -430,12 +438,16 @@ watch(
   @apply p-4;
 }
 
+.viewer-content {
+  @apply p-0 h-[600px] overflow-hidden;
+}
+
 .validation-export-grid {
   @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
 }
 
 .validation-wrapper {
-  @apply h-[400px];
+  @apply h-[600px];
 }
 
 .export-help-wrapper {

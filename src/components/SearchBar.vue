@@ -1,17 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps<{
   placeholder?: string;
   disabled?: boolean;
+  modelValue?: string;
 }>();
 
 const emit = defineEmits<{
   search: [term: string];
   clear: [];
+  'update:modelValue': [value: string];
 }>();
 
-const searchTerm = ref('');
+const searchTerm = ref(props.modelValue || '');
+
+// Watch for external changes to modelValue
+watch(() => props.modelValue, (newValue) => {
+  if (newValue !== undefined) {
+    searchTerm.value = newValue;
+  }
+});
+
+// Watch searchTerm and emit update
+watch(searchTerm, (newValue) => {
+  emit('update:modelValue', newValue);
+  emit('search', newValue);
+});
 
 const handleSearch = () => {
   emit('search', searchTerm.value);

@@ -79,7 +79,10 @@ const handleJumpToField = (fieldName: string) => {
     <div v-else class="issues-list">
       <!-- Errors -->
       <div v-if="errors.length > 0" class="issue-section">
-        <h3 class="section-title text-red-700">Errors</h3>
+        <h3 class="section-title text-red-700">
+          Errors 
+          <span class="text-xs font-normal text-gray-500 ml-2">(click to filter)</span>
+        </h3>
         <div
           v-for="(error, idx) in errors"
           :key="`error-${idx}`"
@@ -100,7 +103,10 @@ const handleJumpToField = (fieldName: string) => {
 
       <!-- Warnings -->
       <div v-if="warnings.length > 0" class="issue-section">
-        <h3 class="section-title text-yellow-700">Warnings</h3>
+        <h3 class="section-title text-yellow-700">
+          Warnings
+          <span class="text-xs font-normal text-gray-500 ml-2">(click to filter)</span>
+        </h3>
         <div
           v-for="(warning, idx) in warnings"
           :key="`warning-${idx}`"
