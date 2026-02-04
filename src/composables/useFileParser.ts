@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import type { FieldMapping, FileUploadState, ParsedRecord } from '../types';
 import { parseMapperCSV } from '../utils/csvParser';
+import { parseMapperExcel } from '../utils/excelParser';
 import { reformatFixedWidthFile, parseAllRecords, detectRecordLength } from '../utils/fixedWidthParser';
 
 export function useFileParser() {
@@ -19,15 +20,23 @@ export function useFileParser() {
   const recordLength = ref<number>(1040); // Default
 
   /**
-   * Parse mapper file (CSV)
+   * Parse mapper file (CSV or Excel)
    */
   const parseMapperFile = async (file: File): Promise<void> => {
     fileState.value.loading = true;
     fileState.value.error = null;
 
     try {
-      const text = await file.text();
-      const parsedMappings = parseMapperCSV(text);
+      let parsedMappings: FieldMapping[];
+      
+      // Check file extension to determine parser
+      const fileName = file.name.toLowerCase();
+      if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) {
+        parsedMappings = await parseMapperExcel(file);
+      } else {
+        const text = await file.text();
+        parsedMappings = parseMapperCSV(text);
+      }
       
       if (parsedMappings.length === 0) {
         throw new Error('No valid mappings found in file');

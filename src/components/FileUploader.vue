@@ -69,7 +69,7 @@ const handleDataDrop = (e: DragEvent) => {
       <!-- Mapper File Upload -->
       <div class="flex-1">
         <label class="block text-sm font-medium mb-2 text-gray-700">
-          Mapper File (CSV)
+          Mapper File (CSV or Excel)
         </label>
         <div
           class="upload-zone"
@@ -85,7 +85,7 @@ const handleDataDrop = (e: DragEvent) => {
           <input
             ref="mapperInput"
             type="file"
-            accept=".csv,.txt"
+            accept=".csv,.txt,.xlsx,.xls"
             class="hidden"
             @change="handleMapperChange"
             :disabled="disabled || loading"
@@ -100,7 +100,7 @@ const handleDataDrop = (e: DragEvent) => {
             <p v-else class="text-sm text-blue-600 font-medium">
               {{ mapperFileName }}
             </p>
-            <p class="text-xs text-gray-500 mt-1">CSV or TXT format</p>
+            <p class="text-xs text-gray-500 mt-1">CSV or Excel</p>
           </div>
         </div>
       </div>
