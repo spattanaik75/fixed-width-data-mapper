@@ -29,6 +29,11 @@ export function parseMapperExcel(file: File): Promise<FieldMapping[]> {
 
         const worksheet = workbook.Sheets[firstSheetName];
         
+        if (!worksheet) {
+          reject(new Error('Failed to read worksheet'));
+          return;
+        }
+        
         // Convert sheet to JSON with header row
         const jsonData = XLSX.utils.sheet_to_json(worksheet, {
           raw: false,
@@ -66,7 +71,7 @@ export function parseMapperExcel(file: File): Promise<FieldMapping[]> {
 
             // Parse position (e.g., "1 to 7" or "1-7")
             const posMatch = position.match(/(\d+)\s*(?:to|-)\s*(\d+)/);
-            if (!posMatch) {
+            if (!posMatch || !posMatch[1] || !posMatch[2]) {
               console.warn(`Skipping row ${index + 2}: Invalid position format "${position}"`);
               return;
             }

@@ -79,8 +79,9 @@ const filteredRecords = computed(() => {
   // Filter by record number if specified
   if (filteredRecordNumber.value !== null) {
     const index = filteredRecordNumber.value - 1;
-    if (index >= 0 && index < records.length) {
-      records = [records[index]];
+    const record = records[index];
+    if (index >= 0 && index < records.length && record) {
+      records = [record];
     } else {
       records = [];
     }
